@@ -1,0 +1,8 @@
+WITH RECURSIVE years AS
+(
+  SELECT 1989 AS yr
+  UNION ALL
+  SELECT yr + 1 FROM years
+   WHERE yr < YEAR(NOW())
+)
+SELECT yr FROM years;
