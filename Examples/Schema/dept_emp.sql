@@ -1,4 +1,5 @@
 CREATE DATABASE dept_emp;
+USE dept_emp;
 
 CREATE TABLE dept (
   deptno INTEGER,
