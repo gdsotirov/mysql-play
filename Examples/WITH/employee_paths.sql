@@ -4,13 +4,13 @@ WITH RECURSIVE employee_paths (empno, ename, deptno, mgr, rang, path) AS
     FROM emp
    WHERE mgr IS NULL
   UNION ALL
-  SELECT e.empno, e.ename, e.deptno, e.mgr, rang + 1, CONCAT(ep.path, ' -> ', e.ename)
-    FROM employee_paths ep,
-         emp e
-   WHERE ep.empno = e.mgr
+  SELECT E.empno, E.ename, E.deptno, E.mgr, rang + 1, CONCAT(EP.path, ' -> ', E.ename)
+    FROM employee_paths EP,
+         emp            E
+   WHERE EP.empno = E.mgr
 )
-SELECT emps.empno, emps.ename, d.dname, rang, emps.path
-  FROM employee_paths emps,
-       dept d
- WHERE emps.deptno = d.deptno
- ORDER BY d.dname, emps.rang;
+SELECT ECTE.empno, ECTE.ename, D.dname, rang, ECTE.path
+  FROM employee_paths ECTE,
+       dept           D
+ WHERE ECTE.deptno = D.deptno
+ ORDER BY D.dname, ECTE.rang;
