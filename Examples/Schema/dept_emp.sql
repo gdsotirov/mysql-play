@@ -1,3 +1,5 @@
+CREATE DATABASE dept_emp;
+
 CREATE TABLE dept (
   deptno INTEGER,
   dname  VARCHAR(14),
