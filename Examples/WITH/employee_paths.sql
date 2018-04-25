@@ -4,7 +4,7 @@ WITH RECURSIVE employee_paths (empno, ename, deptno, job, mgr, rang, path) AS
     FROM emp
    WHERE mgr IS NULL
   UNION ALL
-  SELECT E.empno, E.ename, E.deptno, E.job, E.mgr, rang + 1, CONCAT(EP.path, ' -> ', E.ename)
+  SELECT E.empno, E.ename, E.deptno, E.job, E.mgr, rang + 1, CONCAT(EP.path, ' <- ', E.ename)
     FROM employee_paths EP,
          emp            E
    WHERE EP.empno = E.mgr
