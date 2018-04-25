@@ -1,8 +1,8 @@
-/* In MySQL 8.0 or newer */
+/* In MySQL 8.0.2 or newer */
 
 SELECT E.ename, E.job, D.dname,
        E.sal, SUM(E.sal) OVER (PARTITION BY E.deptno) AS dept_sal,
-       E.comm, SUM(IFNULL(E.comm, 0)) OVER (PARTITION BY E.deptno) AS dept_com
+       E.comm, SUM(COALESCE(E.comm, 0)) OVER (PARTITION BY E.deptno) AS dept_com
   FROM emp  E,
        dept D
  WHERE E.deptno = D.deptno;
@@ -17,7 +17,7 @@ SELECT E.ename, E.job, D.dname,
        (SELECT deptno, SUM(sal) dept_sal
           FROM emp
          GROUP BY deptno) DSAL,
-       (SELECT deptno, SUM(IFNULL(comm, 0)) dept_comm
+       (SELECT deptno, SUM(COALESCE(comm, 0)) dept_comm
           FROM emp
          GROUP BY deptno) DCOM
  WHERE E.deptno = D.deptno
