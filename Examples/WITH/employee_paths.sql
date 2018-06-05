@@ -1,16 +1,16 @@
-WITH RECURSIVE employee_paths (empno, ename, deptno, job, mgr, rang, `path`) AS
+WITH RECURSIVE employee_chain (empno, ename, deptno, job, mgr, `rank`, `path`) AS
 (
-  SELECT empno, ename, deptno, job, empno, 1, CAST(ename AS CHAR(200))
+  SELECT empno, ename, deptno, job, empno, 1, CAST(ename AS CHAR(128))
     FROM emp
    WHERE mgr IS NULL
   UNION ALL
-  SELECT E.empno, E.ename, E.deptno, E.job, E.mgr, rang + 1, CONCAT(EP.`path`, ' <- ', E.ename)
-    FROM employee_paths EP,
+  SELECT E.empno, E.ename, E.deptno, E.job, E.mgr, `rank` + 1, CONCAT(EC.`path`, ' <- ', E.ename)
+    FROM employee_chain EC,
          emp            E
-   WHERE EP.empno = E.mgr
+   WHERE E.mgr = EC.empno
 )
-SELECT ECTE.empno, ECTE.ename, D.dname, ECTE.job, ECTE.rang, ECTE.`path`
-  FROM employee_paths ECTE,
+SELECT ECTE.empno, ECTE.ename, D.dname, ECTE.job, ECTE.`rank`, ECTE.`path`
+  FROM employee_chain ECTE,
        dept           D
- WHERE ECTE.deptno = D.deptno
- ORDER BY D.dname, ECTE.rang;
+ WHERE D.deptno = ECTE.deptno
+ ORDER BY D.dname, ECTE.`rank`;
