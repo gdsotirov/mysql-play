@@ -1,6 +1,6 @@
 DELIMITER //
 
-CREATE FUNCTION get_rnd_ssn()
+CREATE FUNCTION gen_rnd_ssn()
     RETURNS CHAR(11) CHARSET utf8
     NO SQL
 BEGIN
