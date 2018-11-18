@@ -12,7 +12,7 @@ BEGIN
   ELSEIF range_from < range_to THEN
     SET res := FLOOR(range_from + RAND() * (range_to - range_from));
   ELSE
-    SET res := FLOOR(range_to + RAND() * (range_from - range_to));
+    SET res := NULL;
   END IF;
 
   RETURN res;
