@@ -8,7 +8,7 @@ BEGIN
   /* Payment account numbers are betweeen 8 and 19 digits
    * See https://en.wikipedia.org/wiki/Payment_card_number
    */
-  IF LENGTH(pan) BETWEEN 8 AND 19 THEN
+  IF LENGTH(pan) >= 8 AND LENGTH(pan) <= 19 THEN
     RETURN mask_inner(pan, 6, 4);
   ELSE
     RETURN pan;
