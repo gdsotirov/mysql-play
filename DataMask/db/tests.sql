@@ -360,9 +360,59 @@ SELECT gen_rnd_us_phone();
  * +--------------------+
  */
 
-/* 4. Utility functions */
+/* 4. Random Data Dictionary-Based procedures */
 
-/* 4.1 calc_luhn - calculate Luhn number for the given string
+/* 4.1 gen_dictionary_load - create temporary table for the dictionary */
+
+CALL gen_dictionary_load('/var/mysql/files/us_cities.lst', 'us_cities');
+
+/* Result:
+ * 
+ * +-------------------------+
+ * | Dictionary load success |
+ * +-------------------------+
+ * | Dictionary load success |
+ * +-------------------------+
+ */
+
+LOAD DATA INFILE '/var/mysql/files/us_cities.lst' INTO TABLE gen_dictionary_us_cities LINES TERMINATED BY '\n' (val);
+
+/* Result:
+ *
+ * Query OK, 311 rows affected (0.01 sec)
+ * Records: 311  Deleted: 0  Skipped: 0  Warnings: 0
+ */
+
+/* 4.2 gen_dictionary - generates a random term from given dictionary */
+
+CALL gen_dictionary('us_cities');
+SELECT @gen_dictionary_value;
+
+/* Result:
+ *
+ * +-----------------------+
+ * | @gen_dictionary_value |
+ * +-----------------------+
+ * | Hartford              |
+ * +-----------------------+
+ */
+
+/* 4.3 gen_dictionary_drop - drop temporary table of the dictionary */
+
+CALL gen_dictionary_drop('us_cities');
+
+/* Result:
+ *
+ * +--------------------+
+ * | Dictionary removed |
+ * +--------------------+
+ * | Dictionary removed |
+ * +--------------------+
+ */
+
+/* 5. Utility functions */
+
+/* 5.1 calc_luhn - calculate Luhn number for the given string
 
 SELECT '7992739871' pan, LENGTH('7992739871') pan_len, calc_luhn('7992739871') luhn_nbr;
 
