@@ -20,6 +20,8 @@ Provides the following functions:
   * `gen_rnd_ssn` - Generation of a random Social Security Number of US citizens
   * `gen_rnd_string` - A utility function for generation of a random string with given length
   * `gen_rnd_us_phone` - Generation of a random US phone number in the 555 area
+* Utility functions:
+  * `calc_luhn - calculates Lunh number
 
 ## TODO
 
