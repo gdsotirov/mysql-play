@@ -6,7 +6,7 @@ BEGIN
    * See https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html#priv_create-temporary-tables
    */
 
-  IF dictionary_name NOT RLIKE '^[a-zA-Z]+$' THEN
+  IF dictionary_name NOT RLIKE '^[_a-zA-Z]+$' THEN
     SIGNAL SQLSTATE '99002'
       SET MESSAGE_TEXT = 'Dictionary removal error (name not only alpha)';
   END IF;
