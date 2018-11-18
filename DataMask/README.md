@@ -10,7 +10,7 @@ Provides the following functions:
   * `mask_inner` - A general-purpose function for masking inner parts of a string. Uses X as masking character by default, but could use @mask_character for specific masking character
   * `mask_outer` - A general-purpose function for masking outer parts of a string. Uses X as masking character by default, but could use @mask_character for specific masking character
 * Special purpose masking functions:
-  * `mask_pan` - Masks all but the last four digits of a PAN (Payment Account Number)
+  * `mask_pan` - Masks all but the last four digits of a PAN (Primary Account Number)
   * `mask_pan_relaxed` - Masks all but the first six and last four digits of a PAN
   * `mask_ssn` - Masks all but the last four digits of an SSN (Social Security Number) of US citizens
 * Generation of random data:
