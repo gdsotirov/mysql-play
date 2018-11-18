@@ -12,8 +12,10 @@ BEGIN
     SET @mask_character := 'X';
   END IF;
 
-  IF str_len <= from_left + from_right THEN
-    SET res_str := REPEAT(@mask_character, str_len);
+  IF from_left < 0 OR from_right < 0 THEN
+    SET res_str := NULL;
+  ELSEIF str_len < from_left + from_right THEN
+    SET res_str := str;
   ELSE
     SET res_str := CONCAT(REPEAT(@mask_character, from_left),
                           SUBSTR(str, from_left + 1, str_len - from_left - from_right),
