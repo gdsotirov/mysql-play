@@ -7,8 +7,8 @@ A simple data masking and de-identification implementation with stored routines 
 Provides the following functions:
 
 * General purpose masking functions:
-  * `mask_inner` - A general-purpose function for masking inner parts of a string
-  * `mask_outer` - A general-purpose function for masking outer parts of a string
+  * `mask_inner` - A general-purpose function for masking inner parts of a string. Uses X as masking character by default, but could use @mask_character for specific masking character
+  * `mask_outer` - A general-purpose function for masking outer parts of a string. Uses X as masking character by default, but could use @mask_character for specific masking character
 * Special purpose masking functions:
   * `mask_pan` - Masks all but the last four digits of a PAN (Payment Account Number)
   * `mask_pan_relaxed` - Masks all but the first six and last four digits of a PAN

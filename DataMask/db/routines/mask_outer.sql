@@ -8,12 +8,16 @@ BEGIN
   DECLARE str_len INTEGER DEFAULT LENGTH(str);
   DECLARE res_str VARCHAR(128) DEFAULT '';
 
+  IF @mask_character IS NULL THEN
+    SET @mask_character := 'X';
+  END IF;
+
   IF str_len <= from_left + from_right THEN
-    SET res_str := REPEAT('X', str_len);
+    SET res_str := REPEAT(@mask_character, str_len);
   ELSE
-    SET res_str := CONCAT(REPEAT('X', from_left),
+    SET res_str := CONCAT(REPEAT(@mask_character, from_left),
                           SUBSTR(str, from_left + 1, str_len - from_left - from_right),
-                          REPEAT('X', from_right)
+                          REPEAT(@mask_character, from_right)
                          );
   END IF;
 
