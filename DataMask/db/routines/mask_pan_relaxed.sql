@@ -1,14 +1,18 @@
 DELIMITER //
 
-CREATE FUNCTION mask_pan_relaxed(pan VARCHAR(20))
-    RETURNS VARCHAR(20) CHARSET utf8
+CREATE FUNCTION mask_pan_relaxed(pan VARCHAR(19))
+    RETURNS VARCHAR(19) CHARSET utf8
     NO SQL
     DETERMINISTIC
 BEGIN
   /* Payment account numbers are betweeen 8 and 19 digits
    * See https://en.wikipedia.org/wiki/Payment_card_number
    */
-  RETURN mask_inner(pan, 6, 4);
+  IF LENGTH(pan) BETWEEN 8 AND 19 THEN
+    RETURN mask_inner(pan, 6, 4);
+  ELSE
+    RETURN pan;
+  END IF;
 END //
 
 DELIMITER ;
