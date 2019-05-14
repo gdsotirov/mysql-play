@@ -14,8 +14,6 @@ ALTER TABLE emp
   DROP COLUMN created,
   DROP CHECK emp_chks;
 
-select * from emp;
-
 INSERT INTO emp
   (empno, ename, job, mgr, hiredate, sal, created)
 VALUES
@@ -33,5 +31,5 @@ UPDATE emp SET retdate = STR_TO_DATE('1919-04-25', '%Y-%m-%d') WHERE empno = 736
 
 SELECT * FROM emp WHERE retdate <= hiredate;
 
-select * from INFORMATION_SCHEMA.CHECK_CONSTRAINTS;
+SELECT * FROM INFORMATION_SCHEMA.CHECK_CONSTRAINTS;
 SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'CHECK';
