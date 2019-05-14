@@ -13,12 +13,13 @@ CREATE TABLE emp (
   ename    VARCHAR(10),
   job      VARCHAR(9),
   mgr      INTEGER,
-  hiredate DATE,
+  hiredate DATE CONSTRAINT hiredate_chk CHECK (hiredate >= STR_TO_DATE('1980-01-01', '%Y-%m-%d')),
   sal      DECIMAL(7,2),
   comm     DECIMAL(7,2),
   deptno   INTEGER,
   CONSTRAINT pk_emp PRIMARY KEY (empno),
-  CONSTRAINT fk_deptno FOREIGN KEY (deptno) REFERENCES dept (deptno)
+  CONSTRAINT fk_deptno FOREIGN KEY (deptno) REFERENCES dept (deptno),
+  CONSTRAINT sal_chk CHECK (sal > 0 AND (comm IS NULL OR comm >= 0))
 );
 
 INSERT INTO dept VALUES (10, 'ACCOUNTING', 'NEW YORK');
