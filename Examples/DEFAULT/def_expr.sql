@@ -2,7 +2,7 @@
 
 CREATE TABLE def_expr (
   id        INT           NOT NULL AUTO_INCREMENT,
-  uuid_def  BINARY(16)    DEFAULT (uuid_to_bin(uuid())),
+  uuid_def  BINARY(16)    DEFAULT (UUID_TO_BIN(UUID())),
   geo_def   POINT         DEFAULT (Point(0,0)),
   geo_def2  GEOMETRY      DEFAULT (ST_PointFromText('POINT(42.69751 23.32415)', 4326)),
   json_def  JSON          DEFAULT (JSON_ARRAY()),
@@ -18,7 +18,7 @@ CREATE TABLE def_expr (
 INSERT INTO def_expr VALUES ();
 
 SELECT id,
-       bin_to_uuid(uuid_def) uuid_def,
+       BIN_TO_UUID(uuid_def) uuid_def,
        ST_AsText(geo_def)    geo_def,
        ST_AsText(geo_def2)   geo_def2,
        json_def, json_def2,
