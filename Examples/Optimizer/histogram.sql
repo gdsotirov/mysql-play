@@ -88,7 +88,7 @@ SELECT D.deptno
   FROM dept D,
        emp  E
  WHERE E.deptno = D.deptno
-   AND D.deptno > 10;
+   AND E.job    = 'CLERK';
 
 /* Filtered on E is 28.571426391601562, instaed of 9.999999046325684 (guestimate) */
 
