@@ -9,11 +9,17 @@ INSERT INTO emp (empno, ename, job, mgr, hiredate, sal, comm, deptno)
 WITH RECURSIVE gen_emps (empno, ename, job, mgr, hiredate, sal, comm, deptno) AS (
   SELECT 10000                empno,
          gen_rnd_string(10)   ename,
-         CASE gen_range(1, 4)
+         CASE gen_range(1, 9)
            WHEN 1 THEN 'ANALYST'
-           WHEN 2 THEN 'CLERK'
-           WHEN 3 THEN 'MANAGER'
-           WHEN 4 THEN 'SALESMAN'
+           WHEN 2 THEN 'ANALYST'
+           WHEN 3 THEN 'ANALYST'
+           WHEN 4 THEN 'ANALYST'
+           WHEN 5 THEN 'CLERK'
+           WHEN 6 THEN 'CLERK'
+           WHEN 7 THEn 'CLERK'
+           WHEN 7 THEN 'MANAGER'
+           WHEN 8 THEN 'MANAGER'
+           WHEN 9 THEN 'SALESMAN'
          END                   job,
          0                     mgr,
          STR_TO_DATE('1980-01-01', '%Y-%m-%d') + INTERVAL gen_range(1, 4200) DAY
@@ -24,11 +30,17 @@ WITH RECURSIVE gen_emps (empno, ename, job, mgr, hiredate, sal, comm, deptno) AS
   UNION ALL
   SELECT empno + 1,
          gen_rnd_string(10)   ename,
-         CASE gen_range(1, 4)
+         CASE gen_range(1, 9)
            WHEN 1 THEN 'ANALYST'
-           WHEN 2 THEN 'CLERK'
-           WHEN 3 THEN 'MANAGER'
-           WHEN 4 THEN 'SALESMAN'
+           WHEN 2 THEN 'ANALYST'
+           WHEN 3 THEN 'ANALYST'
+           WHEN 4 THEN 'ANALYST'
+           WHEN 5 THEN 'CLERK'
+           WHEN 6 THEN 'CLERK'
+           WHEN 7 THEn 'CLERK'
+           WHEN 7 THEN 'MANAGER'
+           WHEN 8 THEN 'MANAGER'
+           WHEN 9 THEN 'SALESMAN'
          END                   job,
          0                     mgr,
          STR_TO_DATE('1980-01-01', '%Y-%m-%d') + INTERVAL gen_range(1, 4200) DAY
