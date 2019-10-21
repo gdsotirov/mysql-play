@@ -1,5 +1,5 @@
 /* Optimizer guestimates for different predicates
- * See "Access Path Selectionin a Relational Database Management System" by Selinger et al., 1979
+ * See "Access Path Selection in a Relational Database Management System" by Selinger et al., 1979
  * https://www2.cs.duke.edu/courses/compsci516/cps216/spring03/papers/selinger-etal-1979.pdf
  * See also https://dev.mysql.com/worklog/task/?id=6635
  */
