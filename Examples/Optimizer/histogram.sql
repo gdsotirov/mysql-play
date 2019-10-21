@@ -2,6 +2,8 @@
  * Histograms are available since MySQL 8.0.3 RC, released 2017-09-21
  */
 
+SET histogram_generation_max_mem_size = 1000000000;
+
 /* Create histogram */
 ANALYZE TABLE emp
   UPDATE HISTOGRAM ON job WITH 5 BUCKETS;
@@ -84,13 +86,13 @@ SELECT HG.val,
  */
 
 /* Check query */
-SELECT D.deptno
+SELECT E.ename, D.dname
   FROM dept D,
        emp  E
  WHERE E.deptno = D.deptno
-   AND E.job    = 'CLERK';
+   AND E.job    = 'PRESIDENT';
 
-/* Filtered on E is 28.571426391601562, instaed of 9.999999046325684 (guestimate) */
+/* Filtered on E is 0.00009999860048992559, instaed of 9.999999046325684 (guestimate) */
 
 /* Remove histogram */
 ANALYZE TABLE emp DROP HISTOGRAM ON job;
