@@ -1,5 +1,6 @@
 /* A regression with LATERAL in MySQL 8.0.16
  * See https://bugs.mysql.com/bug.php?id=95411
+ * See https://bugs.mysql.com/bug.php?id=94721
  */
 
 /* 1. Create the sample DEPT/EMP database with the script from Examples/Schema/dept_emp.sql */
@@ -46,6 +47,20 @@ OPERATIONS (see above). Seems like the last aggregates are copied on the next
 rows where NULLs should normally appear.
 */
 
+/* Fixed in MySQL 8.0.17 and above as the result is correct:
+
++------------+---------+-------------+---------+
+| dname      | min_sal | avg_sal     | max_sal |
++------------+---------+-------------+---------+
+| ACCOUNTING | 1300.00 | 2916.666667 | 5000.00 |
+| RESEARCH   |  800.00 | 2175.000000 | 3000.00 |
+| SALES      |  950.00 | 1566.666667 | 2850.00 |
+| OPERATIONS |    NULL |        NULL |    NULL | <-- OK!
++------------+---------+-------------+---------+
+4 rows in set (0.00 sec)
+
+*/
+
 /* For comparison the following equivalent query with LEFT JOIN */
 
 SELECT D.dname, DT.min_sal, DT.avg_sal, DT.max_sal
@@ -70,3 +85,4 @@ produces correct results in both MySQL 8.0.14 and 8.0.16 as follows:
 4 rows in set (0.00 sec)
 
 */
+
