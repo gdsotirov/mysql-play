@@ -48,17 +48,19 @@ SELECT E.ename, E.job, D.dname
 
 /* filtered is 90.00% for E */
 
-/* 5. <exprA> AND <exprB> : P(<exprA>) * P(<exprB>) */
+/* 5. <exprA> AND <exprB> : SEL(<exprA>) * SEL(<exprB>) */
 SELECT E.ename, E.job, D.dname
   FROM dept D,
        emp  E
  WHERE E.deptno   = D.deptno
    AND E.job      = 'CLERK'
-   AND E.hiredate > '1981-01-01';
+   AND E.hiredate < '1981-01-01';
 
-/* filtered is 7.14% =  */
+/* filtered is 7.14% = ??? */
 
-/* 5. <exprA> OR <exprB> : P(A) + P(B) - P(A and B) */
+/* 6. <exprA> OR <exprB> : SEL(exprA) + SEL(exprB) - SEL(exprA AND exprB) =
+ *                         SEL(exprA) + SEL(exprB) - SEL(exprA) * SEL(exprB)
+ */
 
 SELECT E.ename, E.job, D.dname
   FROM dept D,
@@ -67,5 +69,5 @@ SELECT E.ename, E.job, D.dname
    AND E.job = 'CLERK'
     OR E.job = 'ANALYST';
 
-/* filtered is 19.00% =  */
+/* filtered is 19.00% = 0.1 + 0.1 - (0.1 * 0.1) = 0.2 - 0.01 = 0.19 = 19% */
 
