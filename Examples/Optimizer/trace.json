@@ -1,0 +1,271 @@
+{
+    "steps": [
+        {
+            "join_preparation": {
+                "select#": 1,
+                "steps": [
+                    {
+                        "expanded_query": "/* select#1 */ select `e`.`ename` AS `ename`,`e`.`job` AS `job`,`d`.`dname` AS `dname` from `dept` `d` join `emp` `e` where ((`e`.`deptno` = `d`.`deptno`) and (`e`.`job` = 'CLERK'))"
+                    }
+                ]
+            }
+        },
+        {
+            "join_optimization": {
+                "select#": 1,
+                "steps": [
+                    {
+                        "condition_processing": {
+                            "condition": "WHERE",
+                            "original_condition": "((`e`.`deptno` = `d`.`deptno`) and (`e`.`job` = 'CLERK'))",
+                            "steps": [
+                                {
+                                    "transformation": "equality_propagation",
+                                    "resulting_condition": "((`e`.`job` = 'CLERK') and multiple equal(`e`.`deptno`, `d`.`deptno`))"
+                                },
+                                {
+                                    "transformation": "constant_propagation",
+                                    "resulting_condition": "((`e`.`job` = 'CLERK') and multiple equal(`e`.`deptno`, `d`.`deptno`))"
+                                },
+                                {
+                                    "transformation": "trivial_condition_removal",
+                                    "resulting_condition": "((`e`.`job` = 'CLERK') and multiple equal(`e`.`deptno`, `d`.`deptno`))"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "substitute_generated_columns": {}
+                    },
+                    {
+                        "table_dependencies": [
+                            {
+                                "table": "`dept` `d`",
+                                "row_may_be_null": false,
+                                "map_bit": 0,
+                                "depends_on_map_bits": []
+                            },
+                            {
+                                "table": "`emp` `e`",
+                                "row_may_be_null": false,
+                                "map_bit": 1,
+                                "depends_on_map_bits": []
+                            }
+                        ]
+                    },
+                    {
+                        "ref_optimizer_key_uses": [
+                            {
+                                "table": "`dept` `d`",
+                                "field": "deptno",
+                                "equals": "`e`.`deptno`",
+                                "null_rejecting": true
+                            },
+                            {
+                                "table": "`emp` `e`",
+                                "field": "deptno",
+                                "equals": "`d`.`deptno`",
+                                "null_rejecting": false
+                            }
+                        ]
+                    },
+                    {
+                        "rows_estimation": [
+                            {
+                                "table": "`dept` `d`",
+                                "table_scan": {
+                                    "rows": 4,
+                                    "cost": 0.25
+                                }
+                            },
+                            {
+                                "table": "`emp` `e`",
+                                "table_scan": {
+                                    "rows": 996514,
+                                    "cost": 1830.2
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "considered_execution_plans": [
+                            {
+                                "plan_prefix": [],
+                                "table": "`dept` `d`",
+                                "best_access_path": {
+                                    "considered_access_paths": [
+                                        {
+                                            "access_type": "ref",
+                                            "index": "PRIMARY",
+                                            "usable": false,
+                                            "chosen": false
+                                        },
+                                        {
+                                            "rows_to_scan": 4,
+                                            "filtering_effect": [],
+                                            "final_filtering_effect": 1,
+                                            "access_type": "scan",
+                                            "resulting_rows": 4,
+                                            "cost": 0.65,
+                                            "chosen": true
+                                        }
+                                    ]
+                                },
+                                "condition_filtering_pct": 100,
+                                "rows_for_plan": 4,
+                                "cost_for_plan": 0.65,
+                                "rest_of_plan": [
+                                    {
+                                        "plan_prefix": [
+                                            "`dept` `d`"
+                                        ],
+                                        "table": "`emp` `e`",
+                                        "best_access_path": {
+                                            "considered_access_paths": [
+                                                {
+                                                    "access_type": "ref",
+                                                    "index": "fk_deptno",
+                                                    "rows": 332171,
+                                                    "cost": 154831,
+                                                    "chosen": true
+                                                },
+                                                {
+                                                    "rows_to_scan": 996514,
+                                                    "filtering_effect": [
+                                                        {
+                                                            "condition": "(`e`.`job` = 'CLERK')",
+                                                            "histogram_selectivity": 0.3333
+                                                        }
+                                                    ],
+                                                    "final_filtering_effect": 0.3333,
+                                                    "access_type": "scan",
+                                                    "using_join_cache": true,
+                                                    "buffers_needed": 1,
+                                                    "resulting_rows": 332112,
+                                                    "cost": 201165,
+                                                    "chosen": false
+                                                }
+                                            ]
+                                        },
+                                        "condition_filtering_pct": 100,
+                                        "rows_for_plan": 1330000.0,
+                                        "cost_for_plan": 154831,
+                                        "chosen": true
+                                    }
+                                ]
+                            },
+                            {
+                                "plan_prefix": [],
+                                "table": "`emp` `e`",
+                                "best_access_path": {
+                                    "considered_access_paths": [
+                                        {
+                                            "access_type": "ref",
+                                            "index": "fk_deptno",
+                                            "usable": false,
+                                            "chosen": false
+                                        },
+                                        {
+                                            "rows_to_scan": 996514,
+                                            "filtering_effect": [
+                                                {
+                                                    "condition": "(`e`.`job` = 'CLERK')",
+                                                    "histogram_selectivity": 0.3333
+                                                }
+                                            ],
+                                            "final_filtering_effect": 0.3333,
+                                            "access_type": "scan",
+                                            "resulting_rows": 332112,
+                                            "cost": 101482,
+                                            "chosen": true
+                                        }
+                                    ]
+                                },
+                                "condition_filtering_pct": 100,
+                                "rows_for_plan": 332112,
+                                "cost_for_plan": 101482,
+                                "rest_of_plan": [
+                                    {
+                                        "plan_prefix": [
+                                            "`emp` `e`"
+                                        ],
+                                        "table": "`dept` `d`",
+                                        "best_access_path": {
+                                            "considered_access_paths": [
+                                                {
+                                                    "access_type": "eq_ref",
+                                                    "index": "PRIMARY",
+                                                    "rows": 1,
+                                                    "cost": 116239,
+                                                    "chosen": true,
+                                                    "cause": "clustered_pk_chosen_by_heuristics"
+                                                },
+                                                {
+                                                    "rows_to_scan": 4,
+                                                    "filtering_effect": [],
+                                                    "final_filtering_effect": 1,
+                                                    "access_type": "scan",
+                                                    "using_join_cache": true,
+                                                    "buffers_needed": 82,
+                                                    "resulting_rows": 4,
+                                                    "cost": 132865,
+                                                    "chosen": false
+                                                }
+                                            ]
+                                        },
+                                        "condition_filtering_pct": 100,
+                                        "rows_for_plan": 332112,
+                                        "cost_for_plan": 217721,
+                                        "pruned_by_cost": true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "attaching_conditions_to_tables": {
+                            "original_condition": "((`e`.`deptno` = `d`.`deptno`) and (`e`.`job` = 'CLERK'))",
+                            "attached_conditions_computation": [],
+                            "attached_conditions_summary": [
+                                {
+                                    "table": "`dept` `d`",
+                                    "attached": null
+                                },
+                                {
+                                    "table": "`emp` `e`",
+                                    "attached": "((`e`.`deptno` = `d`.`deptno`) and (`e`.`job` = 'CLERK'))"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "finalizing_table_conditions": [
+                            {
+                                "table": "`emp` `e`",
+                                "original_table_condition": "((`e`.`deptno` = `d`.`deptno`) and (`e`.`job` = 'CLERK'))",
+                                "final_table_condition   ": "(`e`.`job` = 'CLERK')"
+                            }
+                        ]
+                    },
+                    {
+                        "refine_plan": [
+                            {
+                                "table": "`dept` `d`"
+                            },
+                            {
+                                "table": "`emp` `e`"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "join_execution": {
+                "select#": 1,
+                "steps": []
+            }
+        }
+    ]
+}
+
