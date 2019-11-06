@@ -5,7 +5,7 @@
 /* Create table for salary ranges by job */
 CREATE TABLE job_sal (
   job     VARCHAR(9),
-  sal_min DECIMAL(9,2),
+  sal_min DECIMAL(9,2) NOT NULL,
   sal_max DECIMAL(9,2)
 );
 
@@ -18,21 +18,22 @@ INSERT INTO job_sal (job, sal_min, sal_max) VALUES ('PRESIDENT', 5000, NULL);
 
 /* Select employees with salary out of range */
 EXPLAIN FORMAT=TREE
-SELECT E.ename, E.sal, JS.sal_min, JS.sal_max
+SELECT E.ename, E.sal, JS.sal_min, COALESCE(JS.sal_max, 1000000)
   FROM emp     E,
        job_sal JS
  WHERE E.job = JS.job
-   AND E.sal NOT BETWEEN JS.sal_min AND JS.sal_max;
+   AND E.sal NOT BETWEEN JS.sal_min AND COALESCE(JS.sal_max, 1000000);
 
 /* 0.89 sec for 1M employees */
 
 /* ... and without hash join optimization */
 EXPLAIN
-SELECT /*+ NO_HASH_JOIN(JS, E) */E.ename, E.sal, JS.sal_min, JS.sal_max
+SELECT /*+ NO_HASH_JOIN(JS, E) */
+       E.ename, E.sal, JS.sal_min, COALESCE(JS.sal_max, 1000000)
   FROM emp     E,
        job_sal JS
  WHERE E.job = JS.job
-   AND E.sal NOT BETWEEN JS.sal_min AND JS.sal_max;
+   AND E.sal NOT BETWEEN JS.sal_min AND COALESCE(JS.sal_max, 1000000);
 
 /* 1.26 sec for 1M employees */
 
