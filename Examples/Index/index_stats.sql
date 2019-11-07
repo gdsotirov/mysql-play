@@ -6,6 +6,15 @@ SELECT *
                          'innodb_stats_auto_recalc',
                          'innodb_stats_persistent_sample_pages');
 
+SELECT ISS.`table_name`,
+        CASE ISS.non_unique WHEN 0 THEN 'TRUE' ELSE 'FALSE' END UNQ,
+        ISS.index_name, ISS.seq_in_index AS SEQ, ISS.`column_name`,
+        ISS.cardinality AS CARD, cardinality / TS.n_rows AS SEL
+  FROM INFORMATION_SCHEMA.STATISTICS ISS,
+       mysql.innodb_table_stats      TS
+ WHERE ISS.table_schema = 'dept_emp'
+   AND ISS.`table_name` = TS.`table_name`;
+
 SELECT `table_name`,
         CASE non_unique WHEN 0 THEN 'TRUE' ELSE 'FALSE' END UNQ,
         index_name, seq_in_index AS SEQ, `column_name`, cardinality AS CARD,
