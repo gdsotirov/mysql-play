@@ -2,7 +2,7 @@
  * Histograms are available since MySQL 8.0.3 RC, released 2017-09-21
  */
 
-SET histogram_generation_max_mem_size = 1000000000;
+SET histogram_generation_max_mem_size = 184*1024*1024;
 
 /* Create histogram */
 ANALYZE TABLE emp
