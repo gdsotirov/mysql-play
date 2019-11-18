@@ -12,7 +12,7 @@ BEGIN
       SET MESSAGE_TEXT = 'Dictionary load error (name not only alpha)';
   END IF;
 
-  SET @create_tmp_table_sttmnt_str := CONCAT('CREATE TEMPORARY TABLE gen_dictionary_', dictionary_name, ' (id INT(11) AUTO_INCREMENT, val VARCHAR(128), PRIMARY KEY (`id`));');
+  SET @create_tmp_table_sttmnt_str := CONCAT('CREATE TEMPORARY TABLE gen_dictionary_', dictionary_name, ' (id INT AUTO_INCREMENT, val VARCHAR(128), PRIMARY KEY (`id`));');
 
   /* 1. Create a temporary table for the dictionary */
   PREPARE create_tmp_table_sttmnt FROM @create_tmp_table_sttmnt_str;
