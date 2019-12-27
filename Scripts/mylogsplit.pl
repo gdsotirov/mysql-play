@@ -17,14 +17,25 @@ my $year = "";
 my $pryr = "";
 my $lgyr_fname = "";
 my $LGYR;
+my $logmsg = "";
+my $prlogmsg = "";
+my $dupes = 0;
+my $istsmsg = 0;
+my $prlogln = "";
 
 while ( <LOGFILE> ) {
   if ( $_ =~ /^(0[789])\d{4} /                  ||
        $_ =~ /^(1[0123456789])\d{4}/            ||
-       $_ =~ /^20(1[123456789])\-\d{2}\-\d{2}[ T]/
+       $_ =~ /^20(\d{2})\-\d{2}\-\d{2}[ T]/
      )
   {
     $year=$1;
+    $logmsg = $_;
+    $logmsg =~ s/^\d{4}\-\d{2}\-\d{2}[ T]\d{2}:\d{2}:\d{2}(\.\d{6}Z)?\s+//;
+    $istsmsg = 1;
+  }
+  else {
+    $istsmsg = 0;
   }
   if ( $year ne $pryr ) {
     if ( fileno(LGYR) ) {
@@ -36,7 +47,35 @@ while ( <LOGFILE> ) {
     print "Info: Starting new log file '$lgyr_fname'.\n";
     $pryr = $year;
   }
-  print LGYR $_;
+
+  if ( $istsmsg ) { # only timestamped lines
+    if ( $logmsg ne $prlogmsg )
+    {
+      # if only one duplicate copy back previous and current lines and continue
+      if ( $dupes == 1 ) {
+        print LGYR $prlogln;
+        print LGYR $_;
+        $dupes = 0;
+      }
+      elsif ( $dupes > 1 ) { # print just number of repetitions
+        print LGYR " last message repeated $dupes times\n";
+        print LGYR $_;
+        $dupes = 0;
+      }
+      else {
+        print LGYR $_;
+      }
+    }
+    else {
+      # skip duplicate messages
+      $dupes++;
+    }
+    $prlogmsg = $logmsg;
+    $prlogln = $_;
+  }
+  else { # just copy lines without timestamp
+    print LGYR $_;
+  }
 }
 
 close(LGYR);
