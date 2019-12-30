@@ -1,5 +1,6 @@
 #!/usr/bin/perl -w
-# Split MySQL error log files by years
+# Split MySQL error log files by years and replace duplicate and
+# similar messages with counts
 # Written by Georgi D. Sotirov <gdsotirov@gmail.com>
 #
 
@@ -52,10 +53,12 @@ while ( <LOGFILE> ) {
   if ( $istsmsg ) { # only timestamped lines
     # Handle similar messages
     if ( $logmsg =~ /InnoDB: Table [_a-zA-Z0-9\/]+ has length mismatch/ ||
-         $logmsg =~ /Aborted connection \d+ to db: \'cacti\'/ )
+         $logmsg =~ /Aborted connection \d+ to db: \'cacti\'/ ||
+         $logmsg =~ /Table '[\.\/_a-zA-Z0-9]+' is marked as crashed/ )
     {
       if ( $prlogmsg !~ /InnoDB: Table [_a-zA-Z0-9\/]+ has length mismatch/ &&
-           $prlogmsg !~ /Aborted connection \d+ to db: \'cacti\'/ )
+           $prlogmsg !~ /Aborted connection \d+ to db: \'cacti\'/ &&
+           $prlogmsg !~ /Table '[\.\/_a-zA-Z0-9]+' is marked as crashed/ )
       {
         print LGYR $_;
       }
