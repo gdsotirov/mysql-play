@@ -20,6 +20,7 @@ my $LGYR;
 my $logmsg = "";
 my $prlogmsg = "";
 my $dupes = 0;
+my $similar = 0;
 my $istsmsg = 0;
 my $prlogln = "";
 
@@ -49,7 +50,35 @@ while ( <LOGFILE> ) {
   }
 
   if ( $istsmsg ) { # only timestamped lines
-    if ( $logmsg ne $prlogmsg )
+    # Handle similar messages
+    if ( $logmsg =~ /InnoDB: Table [_a-zA-Z0-9\/]+ has length mismatch/ ||
+         $logmsg =~ /Aborted connection \d+ to db: \'cacti\'/ )
+    {
+      if ( $prlogmsg !~ /InnoDB: Table [_a-zA-Z0-9\/]+ has length mismatch/ &&
+           $prlogmsg !~ /Aborted connection \d+ to db: \'cacti\'/ )
+      {
+        print LGYR $_;
+      }
+      $similar++;
+    }
+    # Dump similar log messages
+    elsif ( $logmsg !~ /InnoDB: Table [_a-zA-Z0-9\/]+ has length mismatch/ &&
+            $logmsg !~ /Aborted connection \d+ to db: \'cacti\'/ &&
+            $similar > 0 )
+    {
+      if ( $similar == 2 ) {
+        print LGYR $prlogmsg;
+      }
+      elsif ( $similar > 2 ) {
+        $similar -= 2;
+        print LGYR " skipped $similar similar log messages\n";
+        print LGYR $prlogln;
+      }
+      $similar = 0;
+      print LGYR $_;
+    }
+    # Handle duplicate messages
+    elsif ( $logmsg ne $prlogmsg )
     {
       # if only one duplicate copy back previous and current lines and continue
       if ( $dupes == 1 ) {
