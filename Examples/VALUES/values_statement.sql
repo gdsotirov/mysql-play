@@ -42,3 +42,33 @@ CREATE TABLE tst (n INT, s VARCHAR(10))
 SELECT *
   FROM (VALUES ROW(1, NULL), ROW(NULL, 'B'), ROW(3, NULL)) AS t(n, s);
 
+/* See https://modern-sql.com/use-case/query-drafting-without-table */
+
+SELECT COUNT(c1),
+       COUNT(*)
+  FROM (VALUES ROW(1),
+               ROW(NULL)
+       ) t1(c1);
+
+/* See https://modern-sql.com/feature/table-column-aliases#cte and
+ *     https://modern-sql.com/use-case/naming-unnamed-columns#with
+ */
+
+WITH t1 (c1) AS (
+     VALUES ROW(1),
+            ROW(NULL)
+)
+SELECT COUNT(c1),
+       COUNT(*)
+  FROM t1;
+
+/* Both above queries prduce the following result:
+ *
+ * +-----------+----------+
+ * | COUNT(c1) | COUNT(*) |
+ * +-----------+----------+
+ * |         1 |        2 |
+ * +-----------+----------+
+ * 1 row in set (0.00 sec)
+ */
+
