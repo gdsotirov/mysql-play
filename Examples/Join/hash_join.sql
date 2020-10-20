@@ -26,7 +26,10 @@ SELECT E.ename, E.sal, JS.sal_min, COALESCE(JS.sal_max, 1000000)
 
 /* 0.89 sec for 1M employees */
 
-/* ... and without hash join optimization */
+/* ... and without hash join optimization
+ * NO_HASH_JOIN available only in 8.0.18
+ * See https://dev.mysql.com/doc/refman/8.0/en/optimizer-hints.html#optimizer-hints-overview
+ */
 EXPLAIN
 SELECT /*+ NO_HASH_JOIN(JS, E) */
        E.ename, E.sal, JS.sal_min, COALESCE(JS.sal_max, 1000000)
