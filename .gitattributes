@@ -1,1 +1,2 @@
 *.sql linguist-language=SQL linguist-detectable=true
+Examples/* -linguist-documentation
