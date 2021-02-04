@@ -1,6 +1,6 @@
 /* Since MySQL 8.0.18 (2019-10-14 GA) it is possible to profile query
  * execution with EXPLAIN ANALYZE
- * See 
+ * See https://dev.mysql.com/doc/refman/8.0/en/explain.html#explain-analyze
  */
 
 /* Explain and analyze a hash join */
@@ -11,7 +11,7 @@ SELECT E.ename, E.sal, JS.sal_min, JS.sal_max
  WHERE E.job = JS.job
    AND E.sal NOT BETWEEN JS.sal_min AND JS.sal_max;
 
-/* 
+/*
  * +---------------------------------------------------------------------------------------------+
  * | EXPLAIN                                                                                     |
  * +---------------------------------------------------------------------------------------------+
