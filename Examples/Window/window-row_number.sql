@@ -5,7 +5,7 @@ SELECT ROW_NUMBER() OVER() AS rnum,
   FROM dept
  LIMIT 2;
 
-SELECT ROW_NUMBER() OVER() AS rnum, 
+SELECT ROW_NUMBER() OVER() AS rnum,
        dname
   FROM dept
  LIMIT 2 OFFSET 2;

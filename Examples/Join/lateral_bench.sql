@@ -4,7 +4,7 @@
 
 /* 2. Generate 1 million employees with Examples/WITH/gen_emps.sql script
  *    For 100k rows -  16.156 sec
- *    For 1m   rows - 171.797 sec 
+ *    For 1m   rows - 171.797 sec
  */
 
 /* 3. Evaluate execution plans of the queries from Examples/Join/lateral.sql and record execution times */
@@ -35,7 +35,7 @@ SELECT D.dname, DT.min_sal, DT.avg_sal, DT.max_sal
 SELECT D.dname, LDT.min_sal, LDT.avg_sal, LDT.max_sal
   FROM dept D,
        LATERAL
-       (SELECT MIN(E.sal) min_sal, AVG(E.sal) avg_sal, MAX(E.sal) max_sal 
+       (SELECT MIN(E.sal) min_sal, AVG(E.sal) avg_sal, MAX(E.sal) max_sal
           FROM emp E
          WHERE E.deptno = D.deptno
        ) AS LDT

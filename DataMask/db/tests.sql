@@ -271,7 +271,7 @@ SELECT '909' ssn, LENGTH('909') ssn_len,
 SELECT gen_range(1, 10), gen_range(-1000, -200), gen_range(1, 0);
 
 /* Result:
- * 
+ *
  * +------------------+------------------------+-----------------+
  * | gen_range(1, 10) | gen_range(-1000, -200) | gen_range(1, 0) |
  * +------------------+------------------------+-----------------+
@@ -293,7 +293,7 @@ SELECT gen_rnd_string(0), gen_rnd_string(8), gen_rnd_string(32);
  */
 
  SELECT gen_rnd_string(129);
- 
+
 /* Result: ERROR 1406 (22001): Data too long for column 'res_str' at row 1 */
 
 /* 3.3 gen_rnd_email - generate random e-mail address in example.com domain */
@@ -367,7 +367,7 @@ SELECT gen_rnd_us_phone();
 CALL gen_dictionary_load('/var/mysql/files/us_cities.lst', 'us_cities');
 
 /* Result:
- * 
+ *
  * +-------------------------+
  * | Dictionary load success |
  * +-------------------------+

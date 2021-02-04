@@ -8,7 +8,7 @@ use strict;
 use warnings;
 
 (@ARGV == 1) or die "Usage: $0 <log file>\n";
-  
+
 my $logfile = $ARGV[0];
 my $LOGFILE;
 

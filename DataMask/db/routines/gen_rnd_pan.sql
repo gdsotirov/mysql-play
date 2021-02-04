@@ -14,7 +14,7 @@ BEGIN
     Set res_pan := NULL;
   END IF;
 
-  /* 
+  /*
    * See https://en.wikipedia.org/wiki/Payment_card_number
    * See https://en.wikipedia.org/wiki/ISO/IEC_7812#Major_industry_identifier
    */

@@ -1,4 +1,4 @@
-﻿SELECT JSON_PRETTY(            
+﻿SELECT JSON_PRETTY(
          JSON_ARRAYAGG(
            JSON_OBJECT("id"   , deptno,
                        "dname", dname,

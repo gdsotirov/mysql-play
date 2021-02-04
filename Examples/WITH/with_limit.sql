@@ -1,4 +1,4 @@
-/* MySQL 8.0.19 allows recursive CTEs with LIMIT 
+/* MySQL 8.0.19 allows recursive CTEs with LIMIT
  * See https://dev.mysql.com/doc/refman/8.0/en/with.html#common-table-expressions-recursion-limits
  */
 
