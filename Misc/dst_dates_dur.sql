@@ -16,18 +16,24 @@ SELECT yr AS `year`,
        WEEKOFYEAR(last_sun_oct) dst_ends_wk,
        DATEDIFF(last_sun_oct, last_sun_mar) dst_days,
        WEEKOFYEAR(last_sun_oct) - WEEKOFYEAR(last_sun_mar) dst_weeks
-  FROM (WITH RECURSIVE years (yr) AS
-        (SELECT 1999 AS yr
+  FROM (WITH RECURSIVE years (yr, mar, oct) AS
+        (SELECT 1999                      AS yr,
+               '1999-03-01'               AS mar,
+               '1999-10-01'               AS oct
          UNION ALL
-         SELECT yr + 1 AS yr
+         SELECT yr + 1                    AS yr,
+                CONCAT(yr + 1, '-03-01')  AS mar,
+                CONCAT(yr + 1, '-10-01')  AS oct
            FROM years
           WHERE yr < YEAR(CURDATE())
         )
         SELECT yr,
-               ADDDATE(LAST_DAY(CONCAT(yr, '-03-01')),
-                INTERVAL - MOD(WEEKDAY(ADDDATE(LAST_DAY(CONCAT(yr, '-03-01')),1)),7) DAY) last_sun_mar,
-               ADDDATE(LAST_DAY(CONCAT(yr, '-10-01')),
-               INTERVAL - MOD(WEEKDAY(ADDDATE(LAST_DAY(CONCAT(yr, '-10-01')),1)),7) DAY) last_sun_oct
+               ADDDATE(LAST_DAY(mar),
+                 INTERVAL - MOD(WEEKDAY(ADDDATE(LAST_DAY(mar), 1)), 7) DAY
+               ) last_sun_mar,
+               ADDDATE(LAST_DAY(oct),
+                 INTERVAL - MOD(WEEKDAY(ADDDATE(LAST_DAY(oct), 1)), 7) DAY
+               ) last_sun_oct
           FROM years
        ) dst_dates;
 
