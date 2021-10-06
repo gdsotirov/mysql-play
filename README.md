@@ -28,4 +28,5 @@ queries, test cases, utility routines, fun, etc.)
   - WITH - examples with CTEs;
   - Window - examples with window functions.
 * Fun - fun scripts :-)
+* Misc - miscellaneous scripts
 
