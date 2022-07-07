@@ -4,6 +4,6 @@
  */
 
 CREATE DATABASE new_db_name;
-RENAME TABLE db_name.table1 TO new_db_name,
-             db_name.table2 TO new_db_name;
+RENAME TABLE db_name.table1 TO new_db_name.table1,
+             db_name.table2 TO new_db_name.table2;
 DROP DATABASE db_name;
