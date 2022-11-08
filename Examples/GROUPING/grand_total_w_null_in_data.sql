@@ -1,4 +1,4 @@
-﻿/* Add imployee without department
+﻿/* Add employee without department
  * INSERT INTO emp
  *   (empno, ename, job, mgr,
  *    hiredate, sal, deptno)
