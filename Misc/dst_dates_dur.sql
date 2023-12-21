@@ -25,7 +25,7 @@ SELECT yr AS `year`,
                 CONCAT(yr + 1, '-03-01')  AS mar,
                 CONCAT(yr + 1, '-10-01')  AS oct
            FROM years
-          WHERE yr < YEAR(CURDATE())
+          WHERE yr < YEAR(CURDATE()) + 5
         )
         SELECT yr,
                ADDDATE(LAST_DAY(mar),
