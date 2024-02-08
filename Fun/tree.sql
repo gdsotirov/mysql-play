@@ -3,12 +3,16 @@
  */
 
 WITH RECURSIVE tree (i, t) AS (
+  WITH args AS (SELECT 5 AS height)
   SELECT 1 AS i,
-         CAST(CONCAT(LPAD(' ', 4 - 0, ' '), LPAD('*', (0 * 2) + 1, '*')) AS CHAR(128)) AS t
+         CAST(CONCAT(LPAD(' ', args.height, ' '), LPAD('*', 1, '*')) AS CHAR(128)) AS t
+    FROM args
   UNION ALL
-  SELECT i + 1,
-         CONCAT(LPAD(' ', 4 - i, ' '), LPAD('*', (i * 2) + 1, '*'))
-    FROM tree WHERE i <= 4
+  SELECT i + 1 AS i,
+         CONCAT(LPAD(' ', args.height - i, ' '), LPAD('*', (i * 2) + 1, '*')) AS t
+    FROM tree JOIN args
+   WHERE tree.i < args.height
 )
 SELECT t AS TREE
   FROM tree;
+
