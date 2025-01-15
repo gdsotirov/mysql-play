@@ -29,7 +29,7 @@ SELECT id, jdata->>'$.name', jdata->'$.langs'
 ALTER TABLE translators
   ADD INDEX idx_langs_arr ((CAST(jdata->'$.langs' AS CHAR(8) ARRAY)));
 
-/* Now the prevoius query has non-unique index lookup */
+/* Now the previous query has non-unique index lookup */
 
 /* Clean up */
 

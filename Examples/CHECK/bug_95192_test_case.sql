@@ -17,9 +17,9 @@ CREATE TABLE tst (
 INSERT INTO tst (id, start_date) VALUES (1, '2019-10-29');
 /* Query OK, 1 row affected */
 
-/* 3. Try to insert an invalid record... suprise! */
+/* 3. Try to insert an invalid record... surprise! */
 INSERT INTO tst (id, start_date) VALUES (5, '2019-10-25');
-/* Should fail, but suceeds in MySQL 8.0.16 and MySQL 8.0.17 */
+/* Should fail, but succeeds in MySQL 8.0.16 and MySQL 8.0.17 */
 /* Query OK, 1 row affected */
 /* Properly fails in MySQL 8.0.18 */
 /* Error Code: 3819. Check constraint 'chk_dat' is violated. */

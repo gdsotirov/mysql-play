@@ -59,7 +59,7 @@ SELECT `schema_name`, `table_name`, `column_name`,
  * 1 row in set (0.0005 sec)
  */
 
-/* Cumulative frequancy of values in a histogram with calculation of frequancy for each value */
+/* Cumulative frequency of values in a histogram with calculation of frequency for each value */
 SELECT HG.val,
        ROUND(HG.freq, 3) cfreq,
        ROUND(HG.freq - LAG(HG.freq, 1, 0) OVER (), 3) freq
@@ -92,7 +92,7 @@ SELECT E.ename, D.dname
  WHERE E.deptno = D.deptno
    AND E.job    = 'PRESIDENT';
 
-/* Filtered on E is 0.00009999860048992559, instaed of 9.999999046325684 (guestimate) */
+/* Filtered on E is 0.00009999860048992559, instead of 9.999999046325684 (guesstimate) */
 
 /* Remove histogram */
 ANALYZE TABLE emp DROP HISTOGRAM ON job;

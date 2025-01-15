@@ -2,7 +2,7 @@
 
 /* Problem: Calculate min/avg/max salary per department */
 
-/* Solution 1: with derrived table (and INNER JOIN) */
+/* Solution 1: with derived table (and INNER JOIN) */
 SELECT D.dname, DT.min_sal, DT.avg_sal, DT.max_sal
   FROM dept D,
        (SELECT E.deptno, MIN(E.sal) min_sal, AVG(E.sal) avg_sal, MAX(E.sal) max_sal
@@ -22,7 +22,7 @@ SELECT D.dname, DT.min_sal, DT.avg_sal, DT.max_sal
 
 /* Solution 2: with subqueries in SELECT */
 
-/* Subqueries in SELECT are restriced to 1 column */
+/* Subqueries in SELECT are restricted to 1 column */
 SELECT D.dname,
        (SELECT E.deptno, MIN(E.sal) min_sal, AVG(E.sal) avg_sal, MAX(E.sal) max_sal
           FROM emp E

@@ -29,7 +29,7 @@ SET binlog_format = 'STATEMENT';
 SET binlog_row_image = 'minimal';
 
 /* ...and then try to make the record invalid again... surprise! */
-UPDATE tst SET end_date = '2019-04-20' WHERE id = 1; /* Should fail, but suceeds in 8.0.16 */
+UPDATE tst SET end_date = '2019-04-20' WHERE id = 1; /* Should fail, but succeeds in 8.0.16 */
 /* Query OK, 1 row affected */
 
 UPDATE tst SET end_date = '2019-04-20' WHERE id = 1; /* Fails as expected in 8.0.17 */

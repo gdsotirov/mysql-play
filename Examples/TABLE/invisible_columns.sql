@@ -42,7 +42,7 @@ INSERT INTO party (fname, lname)
 VALUES ('John', 'Smith');
 
 /* an invisible column that is NOT NULL would reveal itself even if not
- * referenced epplicitly in INSERT with
+ * referenced explicitly in INSERT with
  * Error Code: 1364. Field 'bdate' doesn't have a default value
  */
 
