@@ -1,4 +1,4 @@
-﻿/* MySQL 8.0.11 finally supports EXCEPT clause
+﻿/* MySQL 8.0.31 finally supports EXCEPT clause
  * See https://dev.mysql.com/doc/refman/8.0/en/except.html and
  *     https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-31.html#mysqld-8-0-31-sql-syntax
  * Note: EXCEPT clause is equivalent to MINUS (in Oracle)
