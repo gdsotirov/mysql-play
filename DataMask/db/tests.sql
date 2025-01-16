@@ -147,7 +147,7 @@ SET @mask_character := NULL;
 /* 2. Special purpose masking functions */
 
 /* 2.1 mask_pan - Masks all but the last four digits of a PAN */
-/* 2.1.1 mask_pan - if not sutable length return unchanged */
+/* 2.1.1 mask_pan - if not suitable length return unchanged */
 
 SELECT '4111111' pan, LENGTH('4111111') pan_len,
        mask_pan('4111111') mask_pan, LENGTH(mask_pan('4111111')) mask_pan_len;

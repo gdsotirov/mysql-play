@@ -29,7 +29,7 @@ BEGIN
     SET idx := idx - 1;
   END WHILE;
 
-  /* 2. Take the sume of all the digits multiply by 9 and modulo by 10 */
+  /* 2. Take the sum of all the digits multiply by 9 and modulo by 10 */
   RETURN ((sum_digits * 9) % 10);
 END //
 

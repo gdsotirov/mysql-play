@@ -11,7 +11,7 @@ INSERT INTO t2 VALUES ROW(1, 'A'), ROW(4, 'D');
 INSERT INTO t3 VALUES ROW(1), ROW(4);
 
 /* TABLE could be used where you could employ SELECT, so it could be used */
-/* as standalone statment */
+/* as standalone statement */
 
 TABLE t1;
 TABLE t2;

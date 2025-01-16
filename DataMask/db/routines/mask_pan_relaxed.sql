@@ -5,7 +5,7 @@ CREATE FUNCTION mask_pan_relaxed(pan VARCHAR(19))
     NO SQL
     DETERMINISTIC
 BEGIN
-  /* Payment account numbers are betweeen 8 and 19 digits
+  /* Payment account numbers are between 8 and 19 digits
    * See https://en.wikipedia.org/wiki/Payment_card_number
    */
   IF LENGTH(pan) >= 8 AND LENGTH(pan) <= 19 THEN

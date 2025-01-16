@@ -1,6 +1,6 @@
 /* How to visualize combinatorics to an 8th grader? */
 
-/* Problem 1: In the main menu of a restaurant there are the folloing dishes:
+/* Problem 1: In the main menu of a restaurant there are the following dishes:
  *  - 2 kinds of soup;
  *  - 5 kinds of main courses;
  *  - 3 kinds of dessert.
@@ -132,9 +132,9 @@ SELECT f1.p1, f2.p2, 'I', f3.p3, f4.p4
  * 24 rows in set (0.0007 sec)
  */
 
-/* Problem 3: The 25 studends in a class received three free invitations
+/* Problem 3: The 25 students in a class received three free invitations
  * for theater. In how many different ways these invitations could be
- * distributed, so that each students recieves at most one invitation.
+ * distributed, so that each students receives at most one invitation.
  * Solution: C(n=25, k=3) = 25.24.23 / 1.2.3 = 13 800 / 6 = 2 300
  * Solution with SQL (CTE):
  */
@@ -205,7 +205,7 @@ SELECT i1.s1, i2.s2, i3.s3
  */
 
 /* Problem 4: For an exam 20 questions and 20 problems were prepared. From them
- * examp tickets are compiled with each ticket having 3 questions and 2
+ * exam tickets are compiled with each ticket having 3 questions and 2
  * problems. How many different tickets could be compiled?
  * Solution: C(n=20, k=3) * C(n=20, k=2) = 20.19.18 / 1.2.3 * 20.19 / 1.2 = 1 140 * 190 = 216 600
  * Solution with SQL (CTE):

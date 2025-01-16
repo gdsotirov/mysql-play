@@ -3,7 +3,7 @@
  */
 
 /* VALUES could be used where you could employ SELECT, so it could be used */
-/* as standalone statment */
+/* as standalone statement */
 
 VALUES ROW(1), ROW(2), ROW(3);
 
@@ -29,7 +29,7 @@ SELECT t1.n, t1.s
        (VALUES ROW(1, 'A'), ROW(4, 'D')) AS t2(n, s)
        ON t1.n = t2.n;
 
-/* or in place of VALUES keyword in INSERR or REPLACE statments */
+/* or in place of VALUES keyword in INSERR or REPLACE statements */
 
 INSERT INTO emp
   (empno, ename, job)
@@ -62,7 +62,7 @@ SELECT COUNT(c1),
        COUNT(*)
   FROM t1;
 
-/* Both above queries prduce the following result:
+/* Both of the above queries produce the following result:
  *
  * +-----------+----------+
  * | COUNT(c1) | COUNT(*) |
