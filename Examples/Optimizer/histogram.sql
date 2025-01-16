@@ -1,5 +1,7 @@
-/* Histogram example
- * Histograms are available since MySQL 8.0.3 RC, released 2017-09-21
+/* MySQL 8.0.2: Enables management of histogram statistics for table
+ * column values by adding support for UPDATE HISTOGRAM and DROP HISTOGRAM
+ * clauses to ANALYZE TABLE statement.
+ * See https://dev.mysql.com/doc/refman/8.0/en/analyze-table.html#analyze-table-histogram-statistics-analysis
  */
 
 SET histogram_generation_max_mem_size = 184*1024*1024;
@@ -61,8 +63,8 @@ SELECT `schema_name`, `table_name`, `column_name`,
 
 /* Cumulative frequency of values in a histogram with calculation of frequency for each value */
 SELECT HG.val,
-       ROUND(HG.freq, 3) cfreq,
-       ROUND(HG.freq - LAG(HG.freq, 1, 0) OVER (), 3) freq
+       ROUND(HG.freq, 5) cfreq,
+       ROUND(HG.freq - LAG(HG.freq, 1, 0) OVER (), 5) freq
   FROM information_schema.column_statistics CS,
        JSON_TABLE(`histogram`->'$.buckets', '$[*]'
                   COLUMNS(val  VARCHAR(10) PATH '$[0]',
@@ -73,16 +75,16 @@ SELECT HG.val,
    AND CS.`column_name` = 'job';
 
 /*
- * +-----------+-------+-------+
- * | val       | cfreq | freq  |
- * +-----------+-------+-------+
- * | ANALYST   | 0.143 | 0.143 |
- * | CLERK     | 0.429 | 0.286 |
- * | MANAGER   | 0.643 | 0.214 |
- * | PRESIDENT | 0.714 | 0.071 |
- * | SALESMAN  |     1 | 0.286 |
- * +-----------+-------+-------+
- * 5 rows in set (0.0012 sec)
+ * +-----------+---------+---------+
+ * | val       | cfreq   | freq    |
+ * +-----------+---------+---------+
+ * | ANALYST   | 0.14286 | 0.14286 |
+ * | CLERK     | 0.42857 | 0.28571 |
+ * | MANAGER   | 0.64286 | 0.21429 |
+ * | PRESIDENT | 0.71429 | 0.07143 |
+ * | SALESMAN  |       1 | 0.28571 |
+ * +-----------+---------+---------+
+ * 5 rows in set (0.00 sec)
  */
 
 /* Check query */
@@ -92,7 +94,17 @@ SELECT E.ename, D.dname
  WHERE E.deptno = D.deptno
    AND E.job    = 'PRESIDENT';
 
-/* Filtered on E is 0.00009999860048992559, instead of 9.999999046325684 (guesstimate) */
+/*
+ * +----+-------------+-------+------------+--------+---------------+---------+---------+-------------------+------+----------+-------------+
+ * | id | select_type | table | partitions | type   | possible_keys | key     | key_len | ref               | rows | filtered | Extra       |
+ * +----+-------------+-------+------------+--------+---------------+---------+---------+-------------------+------+----------+-------------+
+ * |  1 | SIMPLE      | E     | NULL       | ALL    | fk_deptno     | NULL    | NULL    | NULL              |   14 |     7.14 | Using where |
+ * |  1 | SIMPLE      | D     | NULL       | eq_ref | PRIMARY       | PRIMARY | 4       | dept_emp.E.deptno |    1 |   100.00 | NULL        |
+ * +----+-------------+-------+------------+--------+---------------+---------+---------+-------------------+------+----------+-------------+
+ * 2 rows in set, 1 warning (0.00 sec)
+ */
+
+/* Filtered on E is 7.143 % of 14 rows, i.e. roughly 1 rows, instead of 10 % (guesstimate) */
 
 /* Remove histogram */
 ANALYZE TABLE emp DROP HISTOGRAM ON job;

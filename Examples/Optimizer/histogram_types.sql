@@ -1,6 +1,9 @@
-/* Singleton and Equi-height histograms examples */
-
-/* If number of distinct values is eual or lower the number of specified
+/* MySQL 8.0.2: Histogram statics management enabled
+ * See https://dev.mysql.com/doc/refman/8.0/en/analyze-table.html#analyze-table-histogram-statistics-analysis
+ *
+ * Singleton and Equi-height histograms examples
+ *
+ * If number of distinct values is eual or lower the number of specified
  * buckets MySQL creates singleton histogram. If number of distinct values is
  * higher then number of buckets MySQL creates equi-height histogram. Frequent
  * values are in separate buckets.
