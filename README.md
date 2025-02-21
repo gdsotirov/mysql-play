@@ -1,7 +1,7 @@
 # mysql-play
 
-My MySQL playground (sample schemas, examples of new features, experimental
-queries, test cases, utility routines, fun, etc.)
+My [MySQL](https://www.mysql.com/) playground (sample schemas, examples of
+new features, experimental queries, test cases, utility routines, fun, etc.)
 
 ## Contents
 
