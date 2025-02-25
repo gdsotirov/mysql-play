@@ -1,9 +1,9 @@
-/* MySQL 8.1.0 It is now possible to capture EXPLAIN FORMAT=JSON output
+/* MySQL 8.1.0: It is now possible to capture EXPLAIN FORMAT=JSON output
  * in a user variable using a syntax extension added in this release.
  * See https://dev.mysql.com/doc/refman/8.1/en/explain.html#explain-execution-plan
  */
 
-EXPLAIN FORMAT=JSON INTO @my_explain 
+EXPLAIN FORMAT=JSON INTO @my_explain
  SELECT E.ename, E.job, D.dname
    FROM dept D,
         emp  E
