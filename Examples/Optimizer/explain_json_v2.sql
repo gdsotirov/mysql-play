@@ -5,8 +5,8 @@
  *   2 - selects the new JSON format that is based on access paths, and is
  *       intended to provide better compatibility with future versions of
  *       the MySQL Optimizer.
- * See https://dev.mysql.com/doc/refman/8.3/en/explain.html
- * See https://dev.mysql.com/doc/refman/8.3/en/server-system-variables.html#sysvar_explain_json_format_version
+ * See https://dev.mysql.com/doc/refman/8.4/en/explain.html
+ * See https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_explain_json_format_version
  */
 
 SELECT @@explain_json_format_version INTO @curr_json_format_version /* 1 by default */;

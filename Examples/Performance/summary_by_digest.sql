@@ -1,6 +1,6 @@
 /* Is digest summary table representative?
  * See https://dev.mysql.com/doc/refman/5.7/en/performance-schema-statement-digests.html ,
- *     https://dev.mysql.com/doc/refman/5.7/en/statement-summary-tables.html ,
+ *     https://dev.mysql.com/doc/refman/5.7/en/performance-schema-statement-summary-tables.html ,
  *     https://dev.mysql.com/doc/refman/5.7/en/performance-schema-system-variables.html#sysvar_performance_schema_digests_size
  *     https://dev.mysql.com/doc/refman/5.7/en/performance-schema-status-variables.html#statvar_Performance_schema_digest_lost
  */

@@ -1,6 +1,6 @@
 /* Since MySQL 5.6.3 (2011-10-03, Milestone 6) it is possible to trace the optimizer
- * See https://dev.mysql.com/doc/relnotes/mysql/5.6/en/news-5-6-3.html#mysqld-5-6-3-optimizer
- * See https://dev.mysql.com/doc/internals/en/optimizer-tracing.html
+ * See https://web.archive.org/web/20221210085707/https://dev.mysql.com/doc/relnotes/mysql/5.6/en/news-5-6-3.html#mysqld-5-6-3-optimizer
+ * See https://dev.mysql.com/doc/dev/mysql-server/latest/PAGE_OPT_TRACE.html
  */
 
 /* Enable optimizer trace */
