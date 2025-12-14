@@ -1,6 +1,6 @@
 /* Emulate CHECK constraint with generated column (since MySQL 5.7.6)
- * See http://dasini.net/blog/2019/05/14/check-constraints-in-mysql/ ,
- *     http://mablomy.blogspot.com/2016/04/check-constraint-for-mysql-not-null-on.html , and
+ * See https://dasini.net/blog/2019/05/14/check-constraints-in-mysql/ , and
+ *     https://mablomy.blogspot.com/2016/04/check-constraint-for-mysql-not-null-on.html , and
  *     https://yoku0825.blogspot.com/2015/08/an-idea-for-using-mysql-57s-generated.html by
  *     the order I found the articles, otherwise they were published in exactly reverse order
  */

@@ -1,4 +1,4 @@
-/* For loop in SQL (see http://www.rosettacode.org/wiki/Loops/For) */
+/* For loop in SQL (see https://www.rosettacode.org/wiki/Loops/For) */
 
 /* 1. With WITH
  *
