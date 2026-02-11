@@ -51,5 +51,34 @@ SELECT COALESCE(D.dname, 'Total') Dept,
  * 5 rows in set (0,00 sec)
  */
 
+/*
+ * MySQL 8.0.1 (released on 2017-04-10) added GROUPPING function to distinguish
+ * between the supper-agregate rows and real NULLs in data
+ * See https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-1.html
+ * See https://dev.mysql.com/doc/refman/8.0/en/miscellaneous-functions.html#function_grouping
+ */
+
+SELECT CASE GROUPING(D.dname)
+         WHEN 1 THEN 'Total'
+         ELSE COALESCE(D.dname, 'No department')
+       END Dept,
+       SUM(COALESCE(E.sal, 0)) Total
+  FROM emp  E
+       LEFT OUTER JOIN dept D ON E.deptno = D.deptno
+ GROUP BY D.dname WITH ROLLUP;
+
+/*
+ * +---------------+----------+
+ * | Dept          | Total    |
+ * +---------------+----------+
+ * | No department |  1600.00 | <- This is NULL in data, clearly indicated
+ * | ACCOUNTING    |  8750.00 |
+ * | RESEARCH      | 10875.00 |
+ * | SALES         |  9400.00 |
+ * | Total         | 30625.00 | <- This is supper-aggregate
+ * +---------------+----------+
+ * 5 rows in set (0,00 sec)
+ */
+
 ROLLBACK;
 
