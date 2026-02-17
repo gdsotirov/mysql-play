@@ -96,7 +96,8 @@ SELECT CONCAT(
            WHEN VARIABLE_NAME = 'Flush_commands' THEN VARIABLE_VALUE ELSE 0 END), ' ',
          'Open tables: ', SUM(CASE
            WHEN VARIABLE_NAME = 'Open_tables' THEN VARIABLE_VALUE ELSE 0 END ), ' ',
-         'Queries per second avg: ', '???')
-  FROM global_status
- WHERE VARIABLE_NAME IN ('Flush_commands', 'Open_tables', 'Opened_tables', 'Questions', 
-                         'Slow_queries', 'Threads_connected');
+         'Queries per second avg: ', ROUND(SUM(CASE
+           WHEN VARIABLE_NAME = 'Queries' THEN VARIABLE_VALUE ELSE 0 END) / gs.uptime, 3))
+  FROM global_status, gs
+ WHERE VARIABLE_NAME IN ('Flush_commands', 'Open_tables', 'Opened_tables', 'Queries',
+                         'Questions', 'Slow_queries', 'Threads_connected');
