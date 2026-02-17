@@ -5,7 +5,22 @@ WITH
   global_status     AS (SELECT * FROM performance_schema.global_status),
   session_status    AS (SELECT * FROM performance_schema.session_status),
   session_variables AS (SELECT * FROM performance_schema.session_variables),
-  thread_info       AS (SELECT * FROM performance_schema.threads WHERE PROCESSLIST_ID = CONNECTION_ID())
+  thread_info       AS (SELECT * FROM performance_schema.threads WHERE PROCESSLIST_ID = CONNECTION_ID()),
+  smin  AS (SELECT 60 AS secs), /* seconds in a minute */
+  shour AS (SELECT smin.secs * 60 AS secs FROM smin), /* seconds in an hour */
+  sday  AS (SELECT shour.secs * 24 AS secs FROM shour), /* seconds in a day */
+  gs    AS (SELECT VARIABLE_VALUE AS uptime FROM global_status WHERE VARIABLE_NAME = 'Uptime'),
+  days  AS (SELECT FLOOR(gs.uptime / sday.secs) AS d, /* number of days */
+                   FLOOR(gs.uptime / sday.secs) * sday.secs AS dsec /* number of days as seconds */
+              FROM gs, sday),
+  hours AS (SELECT FLOOR((gs.uptime - days.dsec) / shour.secs) AS h, /* number of hours */
+                   FLOOR((gs.uptime - days.dsec) / shour.secs) * shour.secs AS hsec /* number of hours as seconds */
+              FROM shour, sday, gs, days),
+  mins  AS (SELECT FLOOR((gs.uptime - days.dsec - hours.hsec) / smin.secs) AS m,
+                   FLOOR((gs.uptime - days.dsec - hours.hsec) / smin.secs) * smin.secs AS msec
+              FROM smin, shour, sday, gs, days, hours),
+  secs  AS (SELECT gs.uptime - days.dsec - hours.hsec - mins.msec AS s
+              FROM gs, days, hours, mins)
 SELECT CONCAT('Connection id:', REPEAT(' ', 10), CONNECTION_ID()) AS "status"
 UNION
 SELECT CONCAT('Current database:', REPEAT(' ', 7),
@@ -65,9 +80,8 @@ SELECT CONCAT(CASE CONNECTION_TYPE
          ELSE 'port'
        END
 UNION
-SELECT CONCAT('Uptime:', REPEAT(' ', 17), sys.format_time(variable_value * POW(10, 12)))
-  FROM global_status
- WHERE VARIABLE_NAME = 'Uptime'
+SELECT CONCAT('Uptime:', REPEAT(' ', 17), days.d, ' days ', hours.h, ' hours ', mins.m, ' min ', secs.s, ' sec ')
+  FROM days, hours, mins, secs
 UNION
 SELECT CONCAT(
          'Threads: ', SUM(CASE
