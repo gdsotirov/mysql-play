@@ -1,6 +1,6 @@
 /* MySQL 9.0.0: Support for a VECTOR data type.
  * See https://dev.mysql.com/doc/refman/9.6/en/vector.html
- * MariaDB 10.7: Support for VECTOR data, type, index and search
+ * MariaDB 10.7.0: Support for VECTOR data, type, index and search
  * See https://mariadb.com/docs/server/reference/sql-structure/vectors
  */
 
