@@ -30,5 +30,6 @@ test cases, utility routines, fun scripts, etc.)
   - [WITH](Examples/WITH) - examples with CTEs (e.g. `WITH` statements);
   - [Window](Examples/Window) - examples with window functions (e.g. `OVER`, `PARTITION BY` clauses).
 * [Fun](Fun) - fun scripts :-)
-* [Misc](Misc) - miscellaneous scripts.
+* [Misc](Misc) - miscellaneous scripts;
+* [Scripts](Scripts) - utility scripts in AWK, Bash and Perl.
 
