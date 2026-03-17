@@ -60,6 +60,12 @@ SELECT salary
    AND start_dt <= NOW()
    AND end_dt > NOW();
 
+/* or alternatively with BETWEEN operator */
+SELECT salary
+  FROM emp_sal_apphist
+ WHERE empno = 7839
+   AND NOW() BETWEEN start_dt AND end_dt;
+
 /* +--------+
  * | salary |
  * +--------+
