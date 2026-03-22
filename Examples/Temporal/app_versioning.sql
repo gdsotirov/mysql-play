@@ -6,7 +6,7 @@ CREATE TABLE emp_sal_apphist (
   empno     INTEGER,
   salary    DOUBLE,
   start_dt  DATETIME NOT NULL DEFAULT NOW(),
-  end_dt    DATETIME NOT NULL DEFAULT '9999-12-31 00:00:00',
+  end_dt    DATETIME NOT NULL DEFAULT '9999-12-31 23:59:59',
   CONSTRAINT fk_emp FOREIGN KEY (empno) REFERENCES emp(empno),
   PERIOD FOR validity(start_dt, end_dt),
   PRIMARY KEY (empno, validity WITHOUT OVERLAPS)
@@ -24,13 +24,13 @@ SELECT * FROM emp_sal_apphist;
 /* +-------+--------+---------------------+---------------------+
  * | empno | salary | start_dt            | end_dt              |
  * +-------+--------+---------------------+---------------------+
- * |  7839 |   4000 | 2024-11-17 00:00:00 | 9999-12-31 00:00:00 |
+ * |  7839 |   4000 | 2024-11-17 00:00:00 | 9999-12-31 23:59:59 |
  * +-------+--------+---------------------+---------------------+
  * 1 row in set (0.0007 sec)
  */
 
 UPDATE emp_sal_apphist
-   FOR PORTION OF validity FROM '2025-03-01 00:00:00' TO '9999-12-31 00:00:00'
+   FOR PORTION OF validity FROM '2025-03-01 00:00:00' TO '9999-12-31 23:59:59'
    SET salary = 5000
  WHERE empno = 7839;
 
@@ -44,7 +44,7 @@ SELECT * FROM emp_sal_apphist;
  * | empno | salary | start_dt            | end_dt              |
  * +-------+--------+---------------------+---------------------+
  * |  7839 |   4000 | 2024-11-17 00:00:00 | 2025-03-01 00:00:00 |
- * |  7839 |   5000 | 2025-03-01 00:00:00 | 9999-12-31 00:00:00 |
+ * |  7839 |   5000 | 2025-03-01 00:00:00 | 9999-12-31 23:59:59 |
  * +-------+--------+---------------------+---------------------+
  * 2 rows in set (0.0006 sec)
  */
@@ -56,7 +56,7 @@ INSERT INTO emp_sal_apphist
 VALUES
   (7839, 6000, '2025-03-01');
 
-/* ERROR: 1062 (23000): Duplicate entry '7839-9999-12-31 00:00:00-2025-03-01 00:00:00' for key 'PRIMARY' */
+/* ERROR: 1062 (23000): Duplicate entry '7839-9999-12-31 23:59:59-2025-03-01 00:00:00' for key 'PRIMARY' */
 
 /* New overlapping period */
 
