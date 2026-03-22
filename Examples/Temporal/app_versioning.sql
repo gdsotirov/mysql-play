@@ -49,9 +49,23 @@ SELECT * FROM emp_sal_apphist;
  * 2 rows in set (0.0006 sec)
  */
 
-INSERT INTO emp_sal_apphist (empno, salary, start_dt) VALUES (7839, 6000, '2025-03-01');
+/* New period with matchin start date */
+
+INSERT INTO emp_sal_apphist
+  (empno, salary, start_dt)
+VALUES
+  (7839, 6000, '2025-03-01');
 
 /* ERROR: 1062 (23000): Duplicate entry '7839-9999-12-31 00:00:00-2025-03-01 00:00:00' for key 'PRIMARY' */
+
+/* New overlapping period */
+
+INSERT INTO emp_sal_apphist
+  (empno, salary, start_dt, end_dt)
+VALUES
+  (7839, 7000, '2024-11-18', '2025-02-28');
+
+/* Error Code: 1062. Duplicate entry '7839-2025-02-28 00:00:00-2024-11-18 00:00:00' for key 'PRIMARY' */
 
 /* Current salary */
 SELECT salary
