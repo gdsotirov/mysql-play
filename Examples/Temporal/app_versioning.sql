@@ -88,3 +88,19 @@ SELECT salary
  * 1 row in set (0.0009 sec)
  */
 
+/* Close interval (e.g. employee dismissed) */
+DELETE FROM emp_sal_apphist
+   FOR PORTION OF validity FROM NOW() TO '9999-12-31 23:59:59'
+ WHERE empno = 7839;
+
+SELECT * FROM emp_sal_apphist;
+
+/* +-------+--------+---------------------+---------------------+
+ * | empno | salary | start_dt            | end_dt              |
+ * +-------+--------+---------------------+---------------------+
+ * |  7839 |   4000 | 2024-11-17 00:00:00 | 2025-03-01 00:00:00 |
+ * |  7839 |   5000 | 2025-03-01 00:00:00 | 2026-03-22 09:43:18 |
+ * +-------+--------+---------------------+---------------------+
+ * 2 rows in set (0.0007 sec)
+ */
+
