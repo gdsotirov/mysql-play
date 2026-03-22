@@ -41,7 +41,7 @@ repository as marked below.
 
 |Bug|Submitted|Synopsis|Status|Last updated|Details|
 |---|---------|--------|------|------------|-------|
-|[108789](https://bugs.mysql.com/bug.php?id=108789)|2022-10-15|OverflowBitsetTest.ZeroInitialize failure on x86|Unsupported|2022-11-08|The one after which I stopped building for MySQL for Slackware x86|
+|[108789](https://bugs.mysql.com/bug.php?id=108789)|2022-10-15|OverflowBitsetTest.ZeroInitialize failure on x86|Unsupported|2022-11-08|The one after which I stopped building MySQL for Slackware x86|
 |[107147](https://bugs.mysql.com/bug.php?id=107147)|2022-04-28|Slow server upgrades with MySQL 8|Not a Bug|2022-11-08||
 |[106721](https://bugs.mysql.com/bug.php?id=106721)|2022-03-13|Hash join test failure on x86|Closed|2022-04-28|Fixed in [MySQL 8.0.29](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-29.html#mysqld-8-0-29-bug), but no further information given|
 |[103397](https://bugs.mysql.com/bug.php?id=103397)|2021-04-21|More meaninful message for missing include directory|Closed|2021-06-14|Fixed in [MySQL 8.0.27](https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-27.html#mysqld-8-0-27-bug)|
